@@ -32,6 +32,7 @@ public $successStatus = 200;
     public function add(Request $request) 
     { 
         $validator = Validator::make($request->all(), [ 
+            'id' => 'required', 
             'user_id' => 'required', 
             'datetime' => 'required', 
             'type_id' => 'required', 
@@ -40,11 +41,18 @@ public $successStatus = 200;
             'distance' => 'required', 
         ]);
         if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
+            $message['status'] = 401;
+            $message['message'] = $validator->errors();
+            return response()->json($message, 401);            
         }
         $input = $request->all(); 
         $activity = Activity::create($input); 
-        return response()->json(['success'=>$activity], $this-> successStatus); 
+        
+        $message['status'] = 401;
+        $message['message'] = $validator->errors();
+        $message['activity'] = $activity;
+
+        return response()->json($message, $this-> successStatus); 
     }
 
     
