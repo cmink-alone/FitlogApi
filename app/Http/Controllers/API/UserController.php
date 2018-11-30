@@ -77,6 +77,6 @@ public $successStatus = 200;
     public function getAll() 
     { 
         $users = User::all();
-        return response()->json(['success' => $users], $this-> successStatus); 
+        return response()->json($users, $this-> successStatus); 
     } 
 }
