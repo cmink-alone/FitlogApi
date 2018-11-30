@@ -47,12 +47,8 @@ public $successStatus = 200;
         }
         $input = $request->all(); 
         $activity = Activity::create($input); 
-        
-        $message['status'] = 401;
-        $message['message'] = $validator->errors();
-        $message['activity'] = $activity;
 
-        return response()->json($message, $this-> successStatus); 
+        return response()->json($activity, $this-> successStatus); 
     }
 
     
