@@ -48,7 +48,10 @@ public $successStatus = 200;
         $input = $request->all(); 
         $activity = Activity::create($input); 
 
-        return response()->json($activity, $this-> successStatus); 
+        $message['status'] = 200;
+        $message['message'] = $activity->id;
+
+        return response()->json($message, $this-> successStatus); 
     }
 
     
