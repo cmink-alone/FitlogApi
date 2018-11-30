@@ -23,6 +23,7 @@ public $successStatus = 200;
             $user = Auth::user(); 
             $response['status'] = 200;
             $response['message'] = $user->createToken('MyApp')-> accessToken; 
+            $response['user'] = $user;
             return response()->json($response, $this-> successStatus); 
         } 
         else{ 
