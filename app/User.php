@@ -25,10 +25,10 @@ class User extends Authenticatable
     ];
 
     public function followings(){
-        return $this->hasMany('App\Follow','which_following_id');
+        return $this->hasMany('App\Follow','follower_id');
     }
     
     public function followers(){
-        return $this->hasMany('App\Follow','which_followed_id');
+        return $this->hasMany('App\Follow','following_id');
     }
 }
