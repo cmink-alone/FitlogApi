@@ -67,11 +67,17 @@ public $successStatus = 200;
             'distance' => 'required', 
         ]);
         if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
+            $message['status'] = 401;
+            $message['message'] = $validator->errors();
+            return response()->json($message, 401);             
         }
         $input = $request->all(); 
         $activity = Activity::find($input['id'])->update($input); 
-        return response()->json(['success'=>$activity], $this-> successStatus); 
+        
+        $message['status'] = 200;
+        $message['message'] = $activity->id;
+
+        return response()->json($message, $this-> successStatus); 
     }
 
     
