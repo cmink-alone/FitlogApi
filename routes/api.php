@@ -19,7 +19,7 @@ Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('types', 'API\TypeController@all');
     Route::prefix('user')->group(function(){
-        Route::post('all', 'API\UserController@getAll');
+        Route::get('all', 'API\UserController@getAll');
         Route::post('detail', 'API\UserController@details');
     });
     Route::prefix('activity')->group(function(){
