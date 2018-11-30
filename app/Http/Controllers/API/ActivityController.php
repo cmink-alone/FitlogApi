@@ -21,10 +21,12 @@ public $successStatus = 200;
     public function allFollowing() 
     { 
         $user = Auth::user(); 
+        
         $user_ids = $user->followings->pluck('which_followed_id')->toArray();
         $user_ids[]=$user->id;
+
         $activities = Activity::whereIn("user_id",$user_ids)->get(); 
-        return response()->json(['success' => $activities], $this-> successStatus); 
+        return response()->json($activities, $this-> successStatus); 
     } 
 
     public function add(Request $request) 
