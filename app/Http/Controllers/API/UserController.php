@@ -66,4 +66,16 @@ public $successStatus = 200;
         $user = Auth::user(); 
         return response()->json(['success' => $user], $this-> successStatus); 
     } 
+
+    
+    /** 
+     * User all api 
+     * 
+     * @return \Illuminate\Http\Response 
+     */ 
+    public function getAll() 
+    { 
+        $users = User::all();
+        return response()->json(['success' => $user], $this-> successStatus); 
+    } 
 }

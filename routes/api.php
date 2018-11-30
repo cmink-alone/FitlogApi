@@ -17,8 +17,11 @@ Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::post('user_detail', 'API\UserController@details');
     Route::post('types', 'API\TypeController@all');
+    Route::prefix('user')->group(function(){
+        Route::post('all', 'API\UserController@getAll');
+        Route::post('detail', 'API\UserController@details');
+    });
     Route::prefix('activity')->group(function(){
         Route::get('following', 'API\ActivityController@allFollowing');
         Route::post('add', 'API\ActivityController@add');
