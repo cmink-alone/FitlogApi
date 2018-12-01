@@ -31,7 +31,7 @@ public $successStatus = 200;
 
     public function allLimit(Request $request) 
     { 
-        $activities = Activity::all()->offset($request->offset)->limit(10)->get(); 
+        $activities = Activity::all(); 
         return response()->json($activities, $this-> successStatus); 
     } 
 
