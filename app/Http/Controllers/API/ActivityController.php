@@ -32,7 +32,7 @@ public $successStatus = 200;
     public function allLimit(Request $request) 
     { 
         $input = $request->all();
-        $activities = DB::table('activities')->offset($input['offset'])->limit(10)->get(); 
+        $activities = DB::table('activities')->offset(0)->limit(10)->get(); 
         return response()->json($activities, $this-> successStatus); 
     } 
 
