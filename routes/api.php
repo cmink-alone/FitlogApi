@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
+Route::get('limit', 'API\ActivityController@allLimit');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('types', 'API\TypeController@all');

@@ -29,6 +29,12 @@ public $successStatus = 200;
         return response()->json($activities, $this-> successStatus); 
     } 
 
+    public function allLimit(Request $request) 
+    { 
+        $activities = Activity::all()->offset($request->offset)->limit(10)->get(); 
+        return response()->json($activities, $this-> successStatus); 
+    } 
+
     public function add(Request $request) 
     { 
         $validator = Validator::make($request->all(), [ 
