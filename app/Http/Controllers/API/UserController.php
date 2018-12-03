@@ -43,19 +43,21 @@ public $successStatus = 200;
             'name' => 'required', 
             'gender' => 'required', 
             'birthday' => 'required', 
-            'weight' => 'required', 
-            'height' => 'required', 
             'username' => 'required', 
+            'password' => 'required', 
         ]);
         if ($validator->fails()) { 
-            return response()->json(['error'=>$validator->errors()], 401);            
+            $response['status'] = 401;
+            $response['message'] = "Failed to register";
+            return response()->json($response, 401);            
         }
         $input = $request->all(); 
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input); 
-        $success['token'] =  $user->createToken('MyApp')-> accessToken; 
-        $success['name'] =  $user->name;
-        return response()->json(['success'=>$success], $this-> successStatus); 
+
+        $response['status'] = 200;
+        $response['message'] = $user->createToken('MyApp')-> accessToken; 
+        return response()->json($response, $this-> successStatus); 
     }
     /** 
      * details api 
