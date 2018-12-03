@@ -15,5 +15,7 @@ class Activity extends Model
         'minute',
         'distance',
         'description',
+        'flag_push',
+        'flag_delete',
     ];
 }
