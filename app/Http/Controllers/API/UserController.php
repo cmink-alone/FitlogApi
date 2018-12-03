@@ -51,7 +51,16 @@ public $successStatus = 200;
             $response['message'] = "Failed to register";
             return response()->json($response, 401);            
         }
+
         $input = $request->all(); 
+
+        $count = User::where(['username' => $input['username']])->count();
+        if($count) {
+            $response['status'] = 401;
+            $response['message'] = "Username already exist";
+            return response()->json($response, 401);      
+        }
+
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input); 
 
