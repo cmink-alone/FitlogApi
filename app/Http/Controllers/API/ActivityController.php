@@ -83,7 +83,7 @@ public $successStatus = 200;
         $activity = Activity::find($input['id'])->update($input); 
         
         $message['status'] = 200;
-        $message['message'] = $activity->id;
+        $message['message'] = $input['id'];
 
         return response()->json($message, $this-> successStatus); 
     }
