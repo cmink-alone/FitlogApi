@@ -65,6 +65,7 @@ public $successStatus = 200;
         $user = User::create($input); 
 
         $response['status'] = 200;
+        $response['user'] = $user;
         $response['message'] = $user->createToken('MyApp')-> accessToken; 
         return response()->json($response, $this-> successStatus); 
     }
