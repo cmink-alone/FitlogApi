@@ -32,5 +32,7 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::post('add', 'API\ActivityController@add');
         Route::post('update', 'API\ActivityController@update');
         Route::post('delete', 'API\ActivityController@delete');
+        Route::post('add/sync', 'API\ActivityController@addFromLocals');
+        Route::post('update/sync', 'API\ActivityController@updateFromLocals');
     });
 });

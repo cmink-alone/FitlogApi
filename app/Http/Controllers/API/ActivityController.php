@@ -62,6 +62,19 @@ public $successStatus = 200;
         return response()->json($message, $this-> successStatus); 
     }
 
+    public function addFromLocals(Request $request) 
+    { 
+        $input = $request->all(); 
+        $activities = json_decode($input['activities']);
+        $inserted_activities = array();
+
+        foreach($activities as $activity){
+            $inserted_activities[] = Activity::create($activity); 
+        }
+
+        return response()->json($inserted_activities, $this-> successStatus); 
+    }
+
     
     public function update(Request $request) 
     { 
@@ -85,6 +98,20 @@ public $successStatus = 200;
         $message['status'] = 200;
         $message['message'] = $input['id'];
 
+        return response()->json($message, $this-> successStatus); 
+    }
+
+    public function updateFromLocals(Request $request) 
+    { 
+        $input = $request->all(); 
+        $activities = json_decode($input['activities']);
+
+        foreach($activities as $activity){
+            Activity::find($activity['server_id'])->update($activity); 
+        }
+
+        $message['status'] = 200;
+        $message['message'] = "Success";
         return response()->json($message, $this-> successStatus); 
     }
 
