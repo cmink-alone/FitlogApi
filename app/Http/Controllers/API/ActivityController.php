@@ -116,7 +116,7 @@ public $successStatus = 200;
 
         $message['status'] = 200;
         $message['message'] = "Success";
-        return response()->json($input, $this-> successStatus); 
+        return response()->json($input->activity, $this-> successStatus); 
     }
 
     
