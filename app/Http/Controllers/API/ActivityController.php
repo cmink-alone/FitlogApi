@@ -108,9 +108,11 @@ public $successStatus = 200;
         $input = $request->all(); 
         $activities = json_decode($input['activities']);
 
+        /*
         foreach($activities as $activity){
             Activity::find($activity['server_id'])->update($activity); 
         }
+        */
 
         $message['status'] = 200;
         $message['message'] = "Success";
