@@ -106,17 +106,15 @@ public $successStatus = 200;
     public function updateFromLocals(Request $request) 
     { 
         $input = $request->all(); 
-        //$activities = json_decode($input['activities'],true);
+        $activities = json_decode($input['activities'], true);
 
-        /*
         foreach($activities as $activity){
             Activity::find($activity['server_id'])->update($activity); 
         }
-        */
 
         $message['status'] = 200;
         $message['message'] = "Success";
-        return response()->json($input->activity, $this-> successStatus); 
+        return response()->json($message, $this-> successStatus); 
     }
 
     
