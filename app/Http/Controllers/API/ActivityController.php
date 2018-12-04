@@ -69,7 +69,9 @@ public $successStatus = 200;
         $inserted_activities = array();
 
         foreach($activities as $activity){
-            $inserted_activities[] = Activity::create($activity); 
+            $inserted_activity = Activity::create($activity);
+            $inserted_activity->flag_insert = 0;
+            $inserted_activities[] = $inserted_activity; 
         }
 
         return response()->json($inserted_activities, $this-> successStatus); 
