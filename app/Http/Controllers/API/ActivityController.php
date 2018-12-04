@@ -106,7 +106,7 @@ public $successStatus = 200;
     public function updateFromLocals(Request $request) 
     { 
         $input = $request->all(); 
-        $activities = json_decode($input['activities']);
+        $activities = json_decode($input['activities'],true);
 
         /*
         foreach($activities as $activity){
