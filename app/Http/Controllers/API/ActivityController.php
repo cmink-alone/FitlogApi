@@ -26,7 +26,7 @@ public $successStatus = 200;
         $user_ids = $user->followings->pluck('following_id')->toArray();
         $user_ids[]=$user->id;
 
-        $activities = Activity::whereIn("user_id",$user_ids)->get(['id AS server_id', '*']); 
+        $activities = Activity::whereIn("user_id",$user_ids)->get(['id AS server_id', 'activities.*']); 
         return response()->json($activities, $this-> successStatus); 
     } 
 
