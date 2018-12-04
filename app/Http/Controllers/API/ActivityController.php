@@ -65,7 +65,7 @@ public $successStatus = 200;
     public function addFromLocals(Request $request) 
     { 
         $input = $request->all(); 
-        $activities = json_decode($input['activities']);
+        $activities = json_decode($input['activities'],true);
         $inserted_activities = array();
 
         foreach($activities as $activity){
