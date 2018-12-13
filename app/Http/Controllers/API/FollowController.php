@@ -16,9 +16,30 @@ public $successStatus = 200;
      * 
      * @return \Illuminate\Http\Response 
      */ 
-    public function getAll() 
+    public function getFollowers() 
     { 
-        $types = Follow::all(); 
-        return response()->json($types, $this-> successStatus); 
+        $followers = Auth::user()->followers(); 
+        return response()->json($followers, $this-> successStatus); 
+    } 
+
+    public function follow(Request $request) 
+    { 
+        $validator = Validator::make($request->all(), [ 
+            'follower_id' => 'required', 
+            'following_id' => 'required', 
+        ]);
+        $follow = Follow::create($request); 
+        return response()->json($follow, $this-> successStatus); 
+    } 
+
+    
+    public function unfollow(Request $request) 
+    { 
+        $validator = Validator::make($request->all(), [ 
+            'follower_id' => 'required', 
+            'following_id' => 'required', 
+        ]);
+        $follow = Follow::create($request); 
+        return response()->json($follow, $this-> successStatus); 
     } 
 }

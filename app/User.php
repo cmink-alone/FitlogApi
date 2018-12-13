@@ -24,7 +24,7 @@ class User extends Authenticatable
         'password', 'token',
     ];
 
-    public function followings(){
+    public function following(){
         return $this->hasMany('App\Follow','follower_id');
     }
     
