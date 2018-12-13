@@ -18,8 +18,14 @@ public $successStatus = 200;
      */ 
     public function getFollowers() 
     { 
-        $followers = Auth::user()->followers(); 
+        $followers = Auth::user()->followers; 
         return response()->json($followers, $this-> successStatus); 
+    } 
+
+    public function getFollowing() 
+    { 
+        $following = Auth::user()->following;
+        return response()->json($following, $this-> successStatus); 
     } 
 
     public function follow(Request $request) 
