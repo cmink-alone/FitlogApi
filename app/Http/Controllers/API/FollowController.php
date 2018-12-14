@@ -28,7 +28,7 @@ public $successStatus = 200;
         $following = Auth::user()->following;
         $following = DB::table('users')
                     ->join('follows','users.id','=','follows.follower_id')
-                    ->select('users.id, users.name, users.username')
+                    ->select('users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username')
                     ->where('users.id','=',Auth::user()->id)
                     ->get();
         return response()->json($following, $this-> successStatus); 
