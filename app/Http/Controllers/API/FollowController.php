@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use DB;
 use Illuminate\Http\Request; 
 use App\Http\Controllers\Controller; 
 use App\Follow; 
@@ -25,6 +26,11 @@ public $successStatus = 200;
     public function getFollowing() 
     { 
         $following = Auth::user()->following;
+        $following = DB::table('users')
+                    ->join('follows','users.id','=','follows.follower_id')
+                    ->select('users.*')
+                    ->where('users.id','=',Auth::user()->id)
+                    ->get();
         return response()->json($following, $this-> successStatus); 
     } 
 
