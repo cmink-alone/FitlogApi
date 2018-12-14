@@ -19,13 +19,16 @@ public $successStatus = 200;
      */ 
     public function getFollowers() 
     { 
-        $followers = Auth::user()->followers; 
+        $followers = DB::table('users')
+                    ->join('follows','users.id','=','follows.follower_id')
+                    ->select('users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username')
+                    ->where('follows.following_id','=',Auth::user()->id)
+                    ->get();
         return response()->json($followers, $this-> successStatus); 
     } 
 
     public function getFollowing() 
     { 
-        $following = Auth::user()->following;
         $following = DB::table('users')
                     ->join('follows','users.id','=','follows.following_id')
                     ->select('users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username')
