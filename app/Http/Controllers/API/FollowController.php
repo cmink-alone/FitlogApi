@@ -40,9 +40,11 @@ public $successStatus = 200;
     public function search($q) 
     { 
         $users = DB::table('users')
-                    ->select('EXISTS(SELECT id FROM follows WHERE following_id=users.id AND follower_id='.Auth::user()->id.') AS followed','users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username')
+                    ->select('users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username',
+                        DB::raw('EXISTS(SELECT id FROM follows WHERE following_id=users.id AND follower_id='.Auth::user()->id.') AS followed')
+                    )
                     ->where('id','!=',Auth::user()->id)
-                    ->where(function($query){
+                    ->where(function($query) use ($q){
                         $query->where('username','LIKE','%'.$q.'%')
                         ->orWhere('name','LIKE','%'.$q.'%');
                     })
