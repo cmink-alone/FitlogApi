@@ -51,10 +51,11 @@ public $successStatus = 200;
     public function unfollow(Request $request) 
     { 
         $validator = Validator::make($request->all(), [ 
-            'follower_id' => 'required', 
-            'following_id' => 'required', 
+            'following_id' => 'required'
         ]);
-        $follow = Follow::create($request); 
+        $input = $request->all();
+        $follow = Follow::where('follower_id', Auth::user()->id)
+                        ->where('follower_id', $input['follower_id'])->delete();
         return response()->json($follow, $this-> successStatus); 
     } 
 }
