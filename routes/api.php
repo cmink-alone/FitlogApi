@@ -31,6 +31,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('follower/remove/{id}', 'API\FollowController@removeFollower');
     Route::prefix('follow')->group(function(){
         Route::get('all', 'API\FollowController@getAll');
+        Route::get('search/{q}', 'API\FollowController@search');
     });
     Route::prefix('activity')->group(function(){
         Route::get('following', 'API\ActivityController@allFollowing');
