@@ -40,9 +40,12 @@ public $successStatus = 200;
     public function search($q) 
     { 
         $users = DB::table('users')
-                    ->select('users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username')
-                    ->where('username','LIKE','%'.$q.'%')
-                    ->orWhere('name','LIKE','%'.$q.'%')
+                    ->select('EXISTS(SELECT id FROM follows WHERE following_id=users.id AND follower_id=1) AS followed','users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username')
+                    ->where('id','!=',Auth::user()->id)
+                    ->where(function($query){
+                        $query->where('username','LIKE','%'.$q.'%')
+                        ->orWhere('name','LIKE','%'.$q.'%')
+                    })
                     ->get();
         return response()->json($users, $this-> successStatus); 
     } 
