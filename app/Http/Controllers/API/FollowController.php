@@ -47,11 +47,17 @@ public $successStatus = 200;
         return response()->json($follow, $this-> successStatus); 
     } 
 
-    
     public function unfollow($id) 
     { 
         $follow = Follow::where('follower_id', Auth::user()->id)
                         ->where('following_id', $id)->delete();
+        return response()->json($follow, $this-> successStatus); 
+    } 
+
+    public function removeFollower($id) 
+    { 
+        $follow = Follow::where('follower_id', $id)
+                        ->where('following_id', Auth::user()->id)->delete();
         return response()->json($follow, $this-> successStatus); 
     } 
 }
