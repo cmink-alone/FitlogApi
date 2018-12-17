@@ -44,7 +44,7 @@ public $successStatus = 200;
                     ->where('id','!=',Auth::user()->id)
                     ->where(function($query){
                         $query->where('username','LIKE','%'.$q.'%')
-                        ->orWhere('name','LIKE','%'.$q.'%')
+                        ->orWhere('name','LIKE','%'.$q.'%');
                     })
                     ->get();
         return response()->json($users, $this-> successStatus); 
