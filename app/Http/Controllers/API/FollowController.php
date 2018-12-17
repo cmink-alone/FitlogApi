@@ -37,6 +37,16 @@ public $successStatus = 200;
         return response()->json($following, $this-> successStatus); 
     } 
 
+    public function search($q) 
+    { 
+        $users = DB::table('users')
+                    ->select('users.id', 'users.name', 'users.gender', 'users.birthday', 'users.weight', 'users.height', 'users.username')
+                    ->where('username','LIKE','%'.$q.'%')
+                    ->orWhere('name','LIKE','%'.$q.'%')
+                    ->get();
+        return response()->json($users, $this-> successStatus); 
+    } 
+
     public function follow(Request $request) 
     { 
         $validator = Validator::make($request->all(), [ 
