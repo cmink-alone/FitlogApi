@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:api'], function(){
         Route::post('detail', 'API\UserController@details');
     });
     Route::get('unfollow/{id}', 'API\FollowController@unfollow');
+    Route::get('follow/{id}', 'API\FollowController@follow');
     Route::get('follower/remove/{id}', 'API\FollowController@removeFollower');
     Route::prefix('follow')->group(function(){
         Route::get('all', 'API\FollowController@getAll');

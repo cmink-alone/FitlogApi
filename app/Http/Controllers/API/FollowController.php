@@ -52,12 +52,10 @@ public $successStatus = 200;
         return response()->json($users, $this-> successStatus); 
     } 
 
-    public function follow(Request $request) 
+    public function follow(Request $id) 
     { 
-        $validator = Validator::make($request->all(), [ 
-            'follower_id' => 'required', 
-            'following_id' => 'required', 
-        ]);
+        $data['follower_id'] = Auth::user()->id;
+        $data['following_id'] = $id;
         $follow = Follow::create($request); 
         return response()->json($follow, $this-> successStatus); 
     } 
