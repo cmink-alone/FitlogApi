@@ -55,7 +55,7 @@ public $successStatus = 200;
     public function follow($id) 
     { 
         $data['follower_id'] = Auth::user()->id;
-        $data['following_id'] = 2;
+        $data['following_id'] = $id;
         $follow = Follow::create($request); 
         return response()->json($follow, $this-> successStatus); 
     } 
