@@ -52,7 +52,7 @@ public $successStatus = 200;
         return response()->json($users, $this-> successStatus); 
     } 
 
-    public function follow(Request $id) 
+    public function follow($id) 
     { 
         $data['follower_id'] = Auth::user()->id;
         $data['following_id'] = $id;
