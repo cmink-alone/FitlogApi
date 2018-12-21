@@ -6,6 +6,7 @@ use DB;
 use Illuminate\Http\Request; 
 use App\Http\Controllers\Controller; 
 use App\Follow; 
+use App\User; 
 use Illuminate\Support\Facades\Auth; 
 
 class FollowController extends Controller 
@@ -58,14 +59,15 @@ public $successStatus = 200;
         $data['following_id'] = $id;
         $follow = Follow::create($data); 
 
-        /*FCM*/    
-        $tokens = User::find($id)->fcm_tokens->pluck('token');
+        /*FCM*/  
+        $user_following = User::find($id);  
+        $tokens = $user_following->fcm_tokens->pluck('token');
         $key = 'AIzaSyCSeJ0DRLFvUwXZ06jm-98udzEgDTn1qjI';
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
         
         $title='New Follower';
-        $message=$user->fullname . " started following you";
+        $message=$user_following->name . " started following you";
 
         $headers = array(
             'Authorization: key='.$key,
