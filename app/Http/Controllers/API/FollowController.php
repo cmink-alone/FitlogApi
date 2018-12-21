@@ -54,9 +54,44 @@ public $successStatus = 200;
 
     public function follow($id) 
     { 
-        $data['follower_id'] = Auth::user()->id;
+        $user = Auth::user();
+        $data['follower_id'] = $user->id;
         $data['following_id'] = $id;
         $follow = Follow::create($data); 
+
+        /*FCM*/    
+        $tokens = $user->tokens->pluck('token');
+        $title='New Follower';
+        $key = 'AIzaSyBLiB8FjOhdm6fhvJk6lBvu2ETOSh9g9hM';
+        $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
+
+        
+        $token=$request->fcm_token;
+        $headers = array(
+            'Authorization: key='.$key,
+            'Content-Type: application/json'
+        );
+        
+        $fields = array(
+            'registration_ids' => $tokens,
+            'notification' => array(
+                'title' => $title,
+                'body' => $request->message,
+                'sound'=>'default'
+            )
+        );
+        
+        $curl_session = curl_init();
+        curl_setopt($curl_session, CURLOPT_URL,$fcmUrl);
+        curl_setopt($curl_session, CURLOPT_POST, true);
+        curl_setopt($curl_session, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($curl_session, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl_session, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($curl_session, CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($curl_session);
+        curl_close($curl_session);
+        /*FCM*/    
+
         return response()->json($follow, $this-> successStatus); 
     } 
 
