@@ -61,12 +61,13 @@ public $successStatus = 200;
 
         /*FCM*/    
         $tokens = $user->tokens->pluck('token');
-        $title='New Follower';
         $key = 'AIzaSyBLiB8FjOhdm6fhvJk6lBvu2ETOSh9g9hM';
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
         
-        $token=$request->fcm_token;
+        $title='New Follower';
+        $message=$user->fullname . " started following you";
+
         $headers = array(
             'Authorization: key='.$key,
             'Content-Type: application/json'
@@ -76,7 +77,7 @@ public $successStatus = 200;
             'registration_ids' => $tokens,
             'notification' => array(
                 'title' => $title,
-                'body' => $request->message,
+                'body' => $message,
                 'sound'=>'default'
             )
         );
