@@ -21,6 +21,10 @@ Route::post('update_sync', 'API\ActivityController@updateFromLocals');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('types', 'API\TypeController@all');
+    
+    Route::get('fcm/add/{token}', 'API\FcmController@insert');
+    Route::get('fcm/delete/{token}', 'API\FcmController@delete');
+
     Route::prefix('user')->group(function(){
         Route::get('all', 'API\UserController@getAll');
         Route::get('followers', 'API\FollowController@getFollowers');

@@ -24,6 +24,10 @@ class User extends Authenticatable
         'password', 'token',
     ];
 
+    public function fcm_tokens(){
+        return $this->hasMany('App\Fcm_token','user_id');
+    }
+
     public function following(){
         return $this->hasMany('App\Follow','follower_id');
     }
