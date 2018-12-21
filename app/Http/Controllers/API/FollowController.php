@@ -55,7 +55,8 @@ public $successStatus = 200;
 
     public function follow($id) 
     { 
-        $data['follower_id'] = Auth::user()->id;
+        $user = Auth::user();
+        $data['follower_id'] = $user->id;
         $data['following_id'] = $id;
         $follow = Follow::create($data); 
 
@@ -67,7 +68,7 @@ public $successStatus = 200;
 
         
         $title='New Follower';
-        $message=$user_following->name . " started following you";
+        $message=$user->name . " started following you";
 
         $headers = array(
             'Authorization: key='.$key,
