@@ -54,14 +54,13 @@ public $successStatus = 200;
 
     public function follow($id) 
     { 
-        $user = Auth::user();
-        $data['follower_id'] = $user->id;
+        $data['follower_id'] = Auth::user()->id;
         $data['following_id'] = $id;
         $follow = Follow::create($data); 
 
         /*FCM*/    
-        $tokens = $user->tokens->pluck('token');
-        $key = 'AIzaSyBLiB8FjOhdm6fhvJk6lBvu2ETOSh9g9hM';
+        $tokens = User::find($id)->fcm_tokens->pluck('token');
+        $key = 'AIzaSyCSeJ0DRLFvUwXZ06jm-98udzEgDTn1qjI';
         $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
 
         
